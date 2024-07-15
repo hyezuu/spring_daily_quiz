@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>유저 정보 페이지</h1>
+<div th:object="${user}">
+    <p>이름 : <span th:text="*{userName}"></span></p>
+    <p>이메일 : <span th:text="*{email}"></span></p>
+    <p>관리자 : <span th:text="*{isAdmin}"></span></p>
+    <p th:if="${user.isAdmin()}">
+        <a href="/admin">관리자 메뉴</a>
+    </p>
+    <p th:unless="${user.isAdmin()}">
+        <a href="/user">일반 사용자 메뉴</a>
+    </p>
+</div>
+
+</body>
+</html>
