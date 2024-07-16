@@ -21,6 +21,11 @@
         <td th:text="${book.title}"></td>
         <td th:text="${book.author}"></td>
         <td th:text="${book.publicationYear}"></td>
+        <td>
+            <a th:href="@{/editBook/{id}(id=${book.id})}" class="edit-btn">수정</a>
+            <a th:href="@{/deleteBook/{id}(id=${book.id})}" class="delete-btn"
+               onclick="return confirm('정말로 이 책을 삭제하시겠습니까?');">삭제</a>
+        </td>
     </tr>
     </tbody>
 </table>
