@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>책 정보 수정</title>
 </head>
 <body>
 <h1>책 정보 수정</h1>
-<form th:action="@{/books/editBook/{id}}" th:object="${book}" method="post">
+<form th:action="@{/books/editBook}" th:object="${book}" method="post">
+    <input type="hidden" th:field="*{id}" />
     <div>
         <label for="title">제목:</label>
-        <input type="text" id="title" th:field="${book.title}" required />
+        <input type="text" id="title" th:field="*{title}" required />
     </div>
     <div>
         <label for="author">저자:</label>
-        <input type="text" id="author" th:field="${book.author}" required />
+        <input type="text" id="author" th:field="*{author}" required />
     </div>
     <div>
         <label for="publicationYear">출판년도:</label>
-        <input type="number" id="publicationYear" th:field="${book.publicationYear}" required />
+        <input type="number" id="publicationYear" th:field="*{publicationYear}" required />
     </div>
-    <button type="submit">등록하기</button>
+    <button type="submit">Update Book</button>
 </form>
+<a th:href="@{/books}">Back to Book List</a>
 </body>
 </html>
