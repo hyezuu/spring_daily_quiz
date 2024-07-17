@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//crud ! create read update delete
 //@Controller
 @RequestMapping("/books")
 public class BookController {
@@ -33,6 +33,7 @@ public class BookController {
     public String addBook(@ModelAttribute("book") Book book) {
         book.setId(nextId++);
         books.add(book);
+
         return "redirect:/books";
     }
 
@@ -52,6 +53,7 @@ public class BookController {
         return "editBook";
     }
 
+
     @PostMapping("/editBook")
     public String editBook(@ModelAttribute Book updateBook) {
         Book foundBook = findBookById(updateBook.getId());
@@ -59,7 +61,7 @@ public class BookController {
         return "redirect:/books";
     }
 
-    @PostMapping("/deleteBook/{id}")
+    @GetMapping("/deleteBook/{id}")
     public String deleteBook(@PathVariable("id") long id) {
         Book foundBook = findBookById(id);
         books.remove(foundBook);

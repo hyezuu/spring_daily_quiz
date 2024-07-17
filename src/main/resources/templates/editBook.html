@@ -10,7 +10,7 @@
     <input type="hidden" th:field="*{id}" />
     <div>
         <label for="title">제목:</label>
-        <input type="text" id="title" th:field="*{title}" required />
+        <input type="text" id="title" th:field="${book.title}" required />
     </div>
     <div>
         <label for="author">저자:</label>
