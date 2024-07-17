@@ -1,4 +1,4 @@
-package com.est.spring_daily_quiz;
+package com.est.spring_daily_quiz.thyme_leaf.domain;
 
 import lombok.*;
 

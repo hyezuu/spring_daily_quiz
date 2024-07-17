@@ -1,6 +1,6 @@
-package com.est.spring_daily_quiz.controller;
+package com.est.spring_daily_quiz.thyme_leaf.controller;
 
-import com.est.spring_daily_quiz.User;
+import com.est.spring_daily_quiz.thyme_leaf.domain.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
