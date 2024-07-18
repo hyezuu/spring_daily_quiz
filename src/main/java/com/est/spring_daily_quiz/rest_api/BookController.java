@@ -12,71 +12,37 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/books")
 public class BookController {
 
-    List<Book> books = new ArrayList<>();
-    long bookId = 1L;
+    private final BookService bookService;
+
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     @PostMapping
-    public ResponseEntity<Book> createBook(@RequestBody BookDto bookDto) {
-        books.add(convertBookDtoToBook(bookDto));
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<BookDto> createBook(@RequestBody BookDto bookDto) {
+        BookDto responseDto = bookService.createBook(bookDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
     @GetMapping
     public ResponseEntity<List<BookDto>> getAllBooks() {
-        return ResponseEntity.ok(convertBookListToBookDtoList(books));
+        return ResponseEntity.ok(bookService.getAllBooks());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BookDto> getBook(@PathVariable("id") long id) {
-        return ResponseEntity.ok(convertBookToBookDto(getBookById(id)));
+    public ResponseEntity<BookDto> getBookBy(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(bookService.getBookById(id));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<BookDto> updateBook(@PathVariable("id") long id, @RequestBody BookDto bookDto) {
-        Book book = getBookById(id);
-
-        book.setTitle(bookDto.getTitle());
-        book.setAuthor(bookDto.getAuthor());
-        book.setIsbn(bookDto.getIsbn());
-        book.setPublishedYear(bookDto.getPublishedYear());
-
-        return ResponseEntity.ok(convertBookToBookDto(book));
+        return ResponseEntity.ok(bookService.updateBook(id, bookDto));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable("id") long id) {
-        books.remove(getBookById(id));
+        bookService.deleteBook(id);
         return ResponseEntity.noContent().build();
-    }
-
-    public Book getBookById(@PathVariable long bookId) {
-        return books.stream()
-                .filter(book -> book.getId() == bookId)
-                .findFirst().orElseThrow(() -> new IllegalArgumentException("Book not found"));
-    }
-
-    public Book convertBookDtoToBook(BookDto bookDto) {
-        return Book.builder()
-                .id(bookId++)
-                .title(bookDto.getTitle())
-                .author(bookDto.getAuthor())
-                .isbn(bookDto.getIsbn())
-                .publishedYear(bookDto.getPublishedYear())
-                .build();
-    }
-
-    public BookDto convertBookToBookDto(Book book) {
-        return BookDto.builder()
-                .title(book.getTitle())
-                .author(book.getAuthor())
-                .isbn(book.getIsbn())
-                .publishedYear(book.getPublishedYear())
-                .build();
-    }
-
-    public List<BookDto> convertBookListToBookDtoList(List<Book> books) {
-        return books.stream().map(this::convertBookToBookDto)
-                .collect(Collectors.toList());
     }
 
     @ExceptionHandler
