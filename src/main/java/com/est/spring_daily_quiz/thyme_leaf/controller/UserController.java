@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
     @GetMapping("/admin")
     public String adminInfo(Model model) {
-        User admin = new User("강혜주", "hyezuu@Kang", false, "asdasd");
+        User admin = new User("강혜주", "hyezuu@Kang", true, "asdasd");
         model.addAttribute("user", admin);
         return "userInfo";
     }

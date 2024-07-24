@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 //crud ! create read update delete
-//@Controller
+@Controller
 @RequestMapping("/books")
 public class BookController {
     /*
